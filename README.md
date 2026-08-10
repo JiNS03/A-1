@@ -1,4 +1,4 @@
-# Python & Git 기초: Git과 함께하는 Python 첫 발자국 — 제출 보고서
+# Python & Git 기초
 
 ## 1. 프로젝트 개요
 
