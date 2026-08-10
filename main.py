@@ -25,7 +25,7 @@ prompts = [
     }
 ]
 
-# 2. 메뉴 출력 및 사용자 입력 함수
+# 2. 메뉴 출력 함수
 def show_menu():
     print("\n" + "=" * 40)
     print("      📄 GenAI 프롬프트 관리자 📄")
@@ -41,13 +41,30 @@ def show_menu():
     choice = input("원하는 기능의 번호를 입력하세요: ").strip()
     return choice
 
-# 3. 메인 실행 함수
+# 3. [기능 1] 프롬프트 목록 보기 함수
+def show_prompt_list(prompts_list):
+    print("\n" + "=" * 40)
+    print("         📋 프롬프트 전체 목록")
+    print("=" * 40)
+    
+    if not prompts_list:
+        print("등록된 프롬프트가 없습니다.")
+        return
+
+    for idx, p in enumerate(prompts_list, 1):
+        # 즐겨찾기 여부에 따라 별표 표시
+        fav = "⭐ " if p["is_favorite"] else ""
+        print(f"[{idx}] {fav}{p['title']} [{p['category']}]")
+        
+    print("=" * 40)
+
+# 4. 메인 실행 함수
 def main():
     while True:
         menu_choice = show_menu()
         
         if menu_choice == "1":
-            print("\n[안내] 프롬프트 목록 보기 기능 (구현 예정)")
+            show_prompt_list(prompts)
         elif menu_choice == "2":
             print("\n[안내] 프롬프트 추가 기능 (구현 예정)")
         elif menu_choice == "3":
