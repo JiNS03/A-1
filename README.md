@@ -8,7 +8,7 @@
 
 - **프로그램명**: GenAI 프롬프트 관리자
 - **개발 언어**: Python 3.10+
-- **GitHub 저장소**: `[ https://github.com/아이디/저장소명 형태로 실제 URL 입력 ]`
+- **GitHub 저장소**: `[ https://github.com/JiNS03/A-1.git ]`
 - **리모트 확인 명령**: `git remote -v` 실행 결과 ↓
   ```
   origin  https://github.com/JiNS03/A-1.git (fetch)
