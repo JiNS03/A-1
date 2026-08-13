@@ -182,12 +182,11 @@ main()                   # 메뉴 루프 제어
 ### 7.4 git clone 실행 로그
 
 ```
-[ 예시 형식 — 실제 clone 실행 시 터미널에 출력되는 내용을 그대로 붙여넣기
-$ git clone https://github.com/octocat/Hello-World.git
+PS C:\Users\kjs03\Desktop> git clone https://github.com/octocat/Hello-World.git
 Cloning into 'Hello-World'...
-remote: Enumerating objects: ...
-Receiving objects: 100% ...
-]
+remote: Enumerating objects: 13, done.
+remote: Total 13 (delta 0), reused 0 (delta 0), pack-reused 13 (from 1)
+Receiving objects: 100% (13/13), done.
 ```
 
 ### 7.5 git log 실행 결과
@@ -214,6 +213,7 @@ PS C:\Users\kjs03\prompt-manager> git log --oneline --graph
 - 총 커밋 수: `14개`
 
 
+
 ## 9. 배운 점 및 회고
 
 - 리스트+딕셔너리 구조와 ID key 딕셔너리, 클래스 구조를 비교해보며 데이터
@@ -227,4 +227,3 @@ PS C:\Users\kjs03\prompt-manager> git log --oneline --graph
   이번 보고서를 작성하며 깨달았다.
 - Git 커밋 메시지 컨벤션과 브랜치 네이밍 규칙을 미리 정해두고 작업하니,
   나중에 `git log`만 봐도 무슨 작업을 했는지 파악하기 쉬웠다.
-- `[ 추가로 느꼈던 점이나 어려웠던 부분을 자유롭게 작성 ]`
