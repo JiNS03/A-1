@@ -209,7 +209,6 @@ PS C:\Users\kjs03\prompt-manager> git log --oneline --graph
 * 119cb57 chore: add .gitignore file
 ```
 
-
 - 총 커밋 수: `14개`
 
 
