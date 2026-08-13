@@ -193,16 +193,15 @@ Receiving objects: 100% ...
 ### 7.5 git log 실행 결과
 
 ```
-[ git log --oneline --graph 실행 결과를 그대로 붙여넣기
-예시 형식:
-* a1b2c3d (HEAD -> main) feat: 즐겨찾기 관리 기능 구현
-* e4f5g6h feat: 검색 기능 구현
-*   h7i8j9k Merge branch 'feature/prompt-list'
-|\
-| * k1l2m3n feat: 프롬프트 목록 출력 기능 구현
-|/
-* n4o5p6q feat: 메뉴 및 기본 데이터 구현
-]
+* 4306b67 (HEAD -> main, origin/main, feature/prompt-manager) feat: complete CRUD features from 2 to 6
+* 2c2262b feat: implement prompt list viewing function
+* 669c7da feat: add initial main.py structure with menu system
+* 119cb57 chore: add .gitignore file
+*   c5df8e2 Merge branch 'main' of https://github.com/JiNS03/A-1
+|\  
+| * b10aba6 Delete README.md
+| * 32fc530 Create README.md
+* 0a71e97 docs: initial commit with README
 ```
 
 > [ git log --oneline --graph 스크린샷 삽입 ]
