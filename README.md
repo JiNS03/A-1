@@ -19,10 +19,10 @@
 
 | 항목 | 명령어 | 실행 결과 |
 |---|---|---|
-| Python 버전 | `python3 --version` | `[ 예: Python 3.11.5 ]` |
-| Git 버전 | `git --version` | `[ 예: git version 2.43.0 ]` |
-| Git 사용자명 | `git config user.name` | `[ 실제 출력값 ]` |
-| Git 사용자 이메일 | `git config user.email` | `[ 실제 출력값 ]` |
+| Python 버전 | `python --version` | `[ Python 3.13.13 ]` |
+| Git 버전 | `git --version` | `[ git version 2.54.0.windows.1 ]` |
+| Git 사용자명 | `git config user.name` | `[ JiN ]` |
+| Git 사용자 이메일 | `git config user.email` | `[ kjs030925@gmail.com ]` |
 | 기본 브랜치 | `git config init.defaultBranch` | `main` |
 
 > [ 개발 환경 설정 스크린샷 삽입: VSCode Python 확장, 터미널 버전 확인 화면 ]
