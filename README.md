@@ -11,7 +11,8 @@
 - **GitHub 저장소**: `[ https://github.com/아이디/저장소명 형태로 실제 URL 입력 ]`
 - **리모트 확인 명령**: `git remote -v` 실행 결과 ↓
   ```
-  [ git remote -v 실행 결과 붙여넣기 ]
+  [ origin  https://github.com/JiNS03/A-1.git (fetch) ]
+  [origin  https://github.com/JiNS03/A-1.git (push) ]
   ```
 
 ## 2. 개발 환경 설정
