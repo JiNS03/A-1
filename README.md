@@ -193,29 +193,26 @@ Receiving objects: 100% ...
 ### 7.5 git log 실행 결과
 
 ```
-* 4306b67 (HEAD -> main, origin/main, feature/prompt-manager) feat: complete CRUD features from 2 to 6
+PS C:\Users\kjs03\prompt-manager> git log --oneline --graph
+* bf2322d (HEAD -> main, origin/main) Update README.md
+* 47fc980 Update README.md
+* 2de9a23 Update README.md
+* 815235c Update README.md
+* 41e43c8 Update README.md
+* 7cf41f8 Update README.md
+* 270f5cc Update README.md
+* da65a32 Update README.md
+* 9427762 Revise README.md for project documentation
+* 5cc1076 Update README.md
+* 4306b67 (feature/prompt-manager, feature/persistence) feat: complete CRUD features from 2 to 6
 * 2c2262b feat: implement prompt list viewing function
 * 669c7da feat: add initial main.py structure with menu system
 * 119cb57 chore: add .gitignore file
-*   c5df8e2 Merge branch 'main' of https://github.com/JiNS03/A-1
-|\  
-| * b10aba6 Delete README.md
-| * 32fc530 Create README.md
-* 0a71e97 docs: initial commit with README
 ```
 
-> [ git log --oneline --graph 스크린샷 삽입 ]
 
-- 총 커밋 수: `[ 개수 입력, 예: 12개 ]`
+- 총 커밋 수: `14개`
 
-## 8. 실행 결과
-
-> [ 메뉴 화면 스크린샷 삽입 ]
-> [ 프롬프트 추가 실행 스크린샷 삽입 ]
-> [ 프롬프트 목록 실행 스크린샷 삽입 ]
-> [ 카테고리별 조회 실행 스크린샷 삽입 ]
-> [ 검색 실행 스크린샷 삽입 ]
-> [ 즐겨찾기 관리 실행 스크린샷 삽입 ]
 
 ## 9. 배운 점 및 회고
 
