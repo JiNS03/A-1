@@ -1,28 +1,29 @@
-# Python & Git 기초: Git과 함께하는 Python 첫 발자국 — 제출 보고서
+# Python & Git 기초
 
 ## 1. 프로젝트 개요
 
-이번 미션은 GenAI 미션들을 진행하며 쌓아온 프롬프트를 체계적으로 관리하기 위한
+이번 미션은 AI 미션들을 진행하며 쌓아온 프롬프트를 체계적으로 관리하기 위한
 **콘솔 기반 프롬프트 관리 프로그램**을 파이썬으로 직접 구현하고, Git/GitHub로
 버전 관리하는 것을 목표로 했다. 필수 요구사항 구현 이후, 데이터 영속화·CRUD·
 사용 기록 기능까지 포함한 **보너스 과제 1, 2를 모두 추가로 구현**했다.
 
-- **프로그램명**: GenAI 프롬프트 관리자
+- **프로그램명**: AI 프롬프트 관리자
 - **개발 언어**: Python 3.10+
-- **GitHub 저장소**: `[ https://github.com/아이디/저장소명 형태로 실제 URL 입력 ]`
+- **GitHub 저장소**: `[ https://github.com/JiNS03/A-1.git ]`
 - **리모트 확인 명령**: `git remote -v` 실행 결과 ↓
   ```
-  [ git remote -v 실행 결과 붙여넣기 ]
+  origin  https://github.com/JiNS03/A-1.git (fetch)
+  origin  https://github.com/JiNS03/A-1.git (push)
   ```
 
 ## 2. 개발 환경 설정
 
 | 항목 | 명령어 | 실행 결과 |
 |---|---|---|
-| Python 버전 | `python3 --version` | `[ 예: Python 3.11.5 ]` |
-| Git 버전 | `git --version` | `[ 예: git version 2.43.0 ]` |
-| Git 사용자명 | `git config user.name` | `[ 실제 출력값 ]` |
-| Git 사용자 이메일 | `git config user.email` | `[ 실제 출력값 ]` |
+| Python 버전 | `python --version` | `Python 3.13.13` |
+| Git 버전 | `git --version` | `git version 2.54.0.windows.1` |
+| Git 사용자명 | `git config user.name` | `JiN` |
+| Git 사용자 이메일 | `git config user.email` | `kjs030925@gmail.com` |
 | 기본 브랜치 | `git config init.defaultBranch` | `main` |
 
 > [ 개발 환경 설정 스크린샷 삽입: VSCode Python 확장, 터미널 버전 확인 화면 ]
@@ -57,6 +58,9 @@
 ## 4. 주요 기능 및 정책
 
 ### 4.1 메뉴 (`show_menu`)
+번호를 입력받아 문자열로 반환한다. 숫자가 아니거나 목록에 없는 번호를 입력하면
+`main()`의 else 분기에서 "잘못된 번호입니다" 안내 후 메뉴를 다시 표시한다.
+
 ```
 1. 프롬프트 목록 보기
 2. 프롬프트 추가
@@ -69,30 +73,35 @@
 9. Markdown 파일로 내보내기
 0. 프로그램 종료
 ```
-숫자가 아니거나 목록에 없는 번호를 입력하면 `main()`의 else 분기에서
-"잘못된 번호입니다" 안내 후 메뉴를 다시 표시한다.
 
 ### 4.2 프롬프트 추가 (`add_prompt`)
 - 제목/내용은 빈 문자열이면 `while` 루프로 재입력을 요구한다 (필수 검증).
 - 카테고리는 미입력 시 `"기타"`로 자동 지정한다.
 - 추가 완료 시 `save_prompts(prompts)`를 즉시 호출해 JSON 파일에 반영한다.
-- **동명(제목 중복) 처리 정책**: 제목 중복을 별도로 검사하지 않고 모두 새
-  ID로 등록한다. 동일한 프롬프트를 다른 버전/카테고리로 저장하고 싶은
-  경우를 허용하기 위한 의도적 설계이며, ID가 사용자 관점의 고유 식별자
-  역할을 한다.
+- **동명(제목 중복) 처리 정책**: 현재 버전은 제목 중복을 별도로 검사하지 않고
+  모두 새 ID로 등록한다. 즉, 같은 제목이 여러 개 존재할 수 있으며 이는
+  "동일한 프롬프트를 다른 버전/카테고리로 저장하고 싶은 경우"를 허용하기
+  위한 의도적 설계다. ID가 사용자 관점의 고유 식별자 역할을 하므로 제목
+  중복 자체는 오류로 취급하지 않는다.
+  - *(개선 방향)* 제목+카테고리가 동일한 프롬프트를 추가하려 하면 "동일
+    항목이 이미 있습니다. (1) 새로 추가 (2) 기존 항목 덮어쓰기 (3) 취소"
+    형태로 확인받는 정책을 넣을 수 있다.
 
 ### 4.3 카테고리별 조회 (`show_by_category`)
 - 카테고리 목록은 고정 리스트가 아니라 현재 `prompts`에 실제로 존재하는
   값을 `set()`으로 중복 제거해 동적으로 생성한다.
 - **매칭 규칙**: 번호 입력 시 인덱스로 정확히 매칭하고, 이름을 직접 입력한
-  경우는 **완전 일치(대소문자 구분)** 로 비교한다. 카테고리는 자유 입력
-  필드이므로 느슨한 매칭을 허용하면 오탈자(예: "텍스트생성" vs "텍스트
-  생성")를 서로 다른 카테고리로 방치하게 되는 문제를 피하기 위함이다.
+  경우는 **완전 일치(대소문자 구분)** 로 비교한다. 부분 일치나 대소문자 무시는
+  적용하지 않는다 — 카테고리는 자유 입력 필드이므로 느슨한 매칭을 허용하면
+  오탈자(예: "텍스트생성" vs "텍스트 생성")가 서로 다른 카테고리로 계속
+  분리되는 문제를 감추게 되어, 오히려 사용자가 오탈자를 인지하지 못하게
+  되는 부작용이 있다고 판단했다.
 
 ### 4.4 키워드 검색 (`search_prompt`)
 - 제목·내용 양쪽에서 `lower()`로 변환해 **대소문자 무시 부분 문자열 검색**을 수행한다.
-- **정렬/페이징 정책**: 검색 결과는 별도 정렬 없이 `prompts` 리스트 등록
-  순서(ID 오름차순)를 그대로 유지해 출력한다. 페이징은 적용하지 않았다.
+- **정렬/페이징 정책**: 검색 결과는 별도 정렬 없이 `prompts` 리스트에 등록된
+  순서(= ID 오름차순)를 그대로 유지해 출력한다. 결과 개수가 적은 콘솔
+  프로그램 특성상 페이징은 적용하지 않았다.
 
 ### 4.5 상세 보기 (`show_prompt_detail`) — 보너스 2: 조회수 기록
 ID로 프롬프트를 찾아 제목/카테고리/즐겨찾기/**조회수**/내용 전체를 출력한다.
@@ -130,8 +139,9 @@ N개를 출력한다. N은 사용자가 직접 입력하며, 숫자가 아니거
 
 ### 4.10 종료 시 동작
 `0`을 입력하면 종료 메시지를 출력하고 `main()`의 `while` 루프를 `break`로
-빠져나간다. 모든 변경 사항은 발생 시점마다 이미 JSON 파일에 저장되어
-있으므로, 종료 시 별도의 저장 작업은 필요하지 않다.
+빠져나간다. **필수 요구사항 단계에서는 종료 시 데이터가 초기화되었지만,
+보너스 1(영속화) 구현 이후에는 모든 변경 사항이 발생 시점마다 이미 JSON
+파일에 저장되어 있으므로 종료 시 별도의 저장 작업이 필요하지 않다.**
 
 ## 5. 보너스 과제 구현 내용
 
@@ -209,19 +219,18 @@ main()                        # 메뉴 루프 제어
 
 | 접두사 | 의미 | 예시 |
 |---|---|---|
-| `feat:` | 새 기능 추가 | `feat: 프롬프트 JSON 저장/불러오기 기능 구현` |
+| `feat:` | 새 기능 추가 | `feat: 카테고리별 조회 기능 구현` |
 | `fix:` | 버그/예외 수정 | `fix: 빈 제목 입력 시 재요청 로직 추가` |
 | `docs:` | 문서 변경 | `docs: README 실행 방법 추가` |
 | `chore:` | 설정/기타 작업 | `chore: .gitignore 추가` |
 
 ### 7.2 브랜치 전략
-- 네이밍 규칙: `feature/기능이름` (예: `feature/persistence`)
+- 네이밍 규칙: `feature/기능이름` (예: `feature/prompt-list`, `feature/persistence`)
 - 분리 기준: 메뉴 항목 하나(=함수 하나)가 새로 추가되는 작업 단위마다
   별도 브랜치를 생성했다. 단순 오탈자 수정이나 문서 변경은 `main`에서
   바로 커밋했다.
-- 실제 병합 내역: `[ 예: feature/persistence 브랜치에서 JSON 저장/불러오기,
-  Markdown 내보내기, 수정/삭제, 조회수 Top N 기능을 각각 커밋한 뒤
-  git checkout main && git merge feature/persistence 로 병합 ]`
+- 실제 병합 내역: `[ 예: feature/prompt-list 브랜치에서 목록 기능 개발 후
+  git checkout main && git merge feature/prompt-list 로 병합 ]`
 
 ### 7.3 실행 명령 이력 (체크리스트)
 
@@ -239,32 +248,45 @@ main()                        # 메뉴 루프 제어
 ### 7.4 git clone 실행 로그
 
 ```
-[ 예시 형식 — 실제 clone 실행 시 터미널에 출력되는 내용을 그대로 붙여넣기
-$ git clone https://github.com/octocat/Hello-World.git
+PS C:\Users\kjs03\Desktop> git clone https://github.com/octocat/Hello-World.git
 Cloning into 'Hello-World'...
-remote: Enumerating objects: ...
-Receiving objects: 100% ...
-]
+remote: Enumerating objects: 13, done.
+remote: Total 13 (delta 0), reused 0 (delta 0), pack-reused 13 (from 1)
+Receiving objects: 100% (13/13), done.
 ```
 
 ### 7.5 git log 실행 결과
 
 ```
-[ git log --oneline --graph 실행 결과를 그대로 붙여넣기 ]
+PS C:\Users\kjs03\prompt-manager> git log --oneline --graph
+* bf2322d (HEAD -> main, origin/main) Update README.md
+* 47fc980 Update README.md
+* 2de9a23 Update README.md
+* 815235c Update README.md
+* 41e43c8 Update README.md
+* 7cf41f8 Update README.md
+* 270f5cc Update README.md
+* da65a32 Update README.md
+* 9427762 Revise README.md for project documentation
+* 5cc1076 Update README.md
+* 4306b67 (feature/prompt-manager, feature/persistence) feat: complete CRUD features from 2 to 6
+* 2c2262b feat: implement prompt list viewing function
+* 669c7da feat: add initial main.py structure with menu system
+* 119cb57 chore: add .gitignore file
 ```
 
-> [ git log --oneline --graph 스크린샷 삽입 ]
+- 총 커밋 수: `14개`
 
-- 총 커밋 수: `[ 개수 입력 ]`
+## 8. 보너스 과제 관련 커밋 및 실행 결과
 
-## 8. 실행 결과
+> 보너스 기능(JSON 저장/불러오기, Markdown 내보내기, 수정/삭제, 조회수 Top N)을
+> `feature/persistence` 브랜치에서 기능 단위로 커밋하고 `main`에 병합한 뒤,
+> 아래 항목을 채워 넣는다.
 
-> [ 메뉴 화면 스크린샷 삽입 ]
-> [ 프롬프트 추가 실행 스크린샷 삽입 ]
-> [ 프롬프트 목록 실행 스크린샷 삽입 ]
-> [ 카테고리별 조회 실행 스크린샷 삽입 ]
-> [ 검색 실행 스크린샷 삽입 ]
-> [ 즐겨찾기 관리 실행 스크린샷 삽입 ]
+```
+[ 보너스 기능 반영 후 git log --oneline --graph 재실행 결과 붙여넣기 ]
+```
+
 > [ 프롬프트 수정/삭제 실행 스크린샷 삽입 ]
 > [ 조회수 Top N 실행 스크린샷 삽입 ]
 > [ Markdown 내보내기 실행 및 생성된 .md 파일 스크린샷 삽입 ]
@@ -278,6 +300,9 @@ Receiving objects: 100% ...
 - `show_prompt_list()`를 여러 기능에서 재사용하도록 설계하면서, 함수를
   나눌 때 "입력값을 다르게 받되 같은 출력 로직을 쓰는 부분"을 분리하는
   감각을 익혔다.
+- 카테고리 매칭 규칙, 동명 프롬프트 처리처럼 겉으로는 사소해 보이는
+  정책도 명시적으로 정해두지 않으면 나중에 동작이 애매해진다는 것을
+  이번 보고서를 작성하며 깨달았다.
 - 영속화 기능을 구현하면서 "언제 저장할 것인가"라는 설계 선택지가
   있다는 것을 알게 되었다. 메뉴로 저장 시점을 따로 두는 방식과, 변경할
   때마다 즉시 저장하는 방식(write-through) 중 데이터 유실 위험을 줄이는
@@ -288,4 +313,3 @@ Receiving objects: 100% ...
   기본값을 채워 넣는 하위 호환 처리의 필요성을 체감했다.
 - Git 커밋 메시지 컨벤션과 브랜치 네이밍 규칙을 미리 정해두고 작업하니,
   나중에 `git log`만 봐도 무슨 작업을 했는지 파악하기 쉬웠다.
-- `[ 추가로 느꼈던 점이나 어려웠던 부분을 자유롭게 작성 ]`
