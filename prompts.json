@@ -1,0 +1,34 @@
+[
+    {
+        "id": 1,
+        "title": "IT 기술 블로그 글 작성 페르소나",
+        "content": "너는 10년 차 수석 IT 에디터야. 아래 전달하는 기술 주제를 초보자도 쉽게 이해할 수 있도록 명확하고 유쾌한 톤으로 설명해줘.",
+        "category": "페르소나",
+        "is_favorite": true,
+        "usage_count": 0
+    },
+    {
+        "id": 2,
+        "title": "사이버펑크 도시 배경 이미지 생성",
+        "content": "A futuristic cyberpunk city at night with neon signs, wet street reflections, highly detailed, cinematic lighting, 8k resolution --ar 16:9",
+        "category": "이미지 생성",
+        "is_favorite": false,
+        "usage_count": 0
+    },
+    {
+        "id": 3,
+        "title": "파이썬 코드 리팩토링 및 주석 추가",
+        "content": "다음 파이썬 코드를 PEP 8 스타일 가이드에 맞게 리팩토링하고, 각 함수의 역할과 주요 로직에 상세한 한국어 주석을 달아줘.",
+        "category": "텍스트 생성",
+        "is_favorite": false,
+        "usage_count": 0
+    },
+    {
+        "id": 4,
+        "title": "코디세이 미션 진행 프롬프트",
+        "content": "코디세이 미션을 도와주는 페르소나 설정",
+        "category": "텍스트 생성",
+        "is_favorite": false,
+        "usage_count": 1
+    }
+]
